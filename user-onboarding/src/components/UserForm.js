@@ -4,9 +4,9 @@ function UserForm(props) {
   const { formValues, changedInput, formErrors, submitForm } = props;
 
   const onChange = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    changedInput(name, value);
+    const { name, value, checked, type } = e.target;
+    const valueNeeded = type === "checkbox" ? checked : value;
+    changedInput(name, valueNeeded);
   };
 
   const onSubmit = (e) => {
@@ -17,24 +17,28 @@ function UserForm(props) {
   return (
     <div>
       <h2>User Form</h2>
-      <div>{formErrors.firstName}</div>
+      <div>{formErrors.first_name}</div>
+      <div>{formErrors.last_name}</div>
+      <div>{formErrors.email}</div>
+      <div>{formErrors.password}</div>
+      <div>{formErrors.termsOfService}</div>
       <form onSubmit={onSubmit}>
         <label>
           First Name:
           <input
             type="text"
-            name="firstName"
+            name="first_name"
             onChange={onChange}
-            value={formValues.firstName}
+            value={formValues.first_name}
           />
         </label>
         <label>
           Last Name:
           <input
             type="text"
-            name="lastName"
+            name="last_name"
             onChange={onChange}
-            value={formValues.lastName}
+            value={formValues.last_name}
           />
         </label>
         <label>

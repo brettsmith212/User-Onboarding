@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
 const formSchema = yup.object().shape({
-  firstName: yup.string().trim().required("First Name Required"),
-  lastName: yup.string().trim().required("Last Name Required"),
+  first_name: yup.string().trim().required("First Name Required"),
+  last_name: yup.string().trim().required("Last Name Required"),
   email: yup.string().trim().required("Email Required"),
   password: yup
     .string()

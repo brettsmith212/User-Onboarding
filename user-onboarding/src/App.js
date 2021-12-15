@@ -3,18 +3,20 @@ import axios from "axios";
 import * as yup from "yup";
 import "./App.css";
 import UserForm from "./components/UserForm";
+import User from "./components/User";
 import schema from "./components/formSchema";
 
 const initialFormValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
+  email: "",
   password: "",
   termsOfService: false,
 };
 
 const initialFormError = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   password: "",
 };
@@ -26,17 +28,17 @@ function App() {
   const [formErrors, setFormErrors] = useState(initialFormError);
   const [users, setUsers] = useState(initialUser);
 
-  // const getUsers = () => {
-  //   axios
-  //     .get("https://reqres.in/api/users")
-  //     .then((res) => setUsers(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const getUsers = () => {
+    axios
+      .get("https://reqres.in/api/users")
+      .then((res) => setUsers(res.data.data))
+      .catch((err) => console.log(err));
+  };
 
   const postNewUser = (newUser) => {
     axios
       .post("https://reqres.in/api/users", newUser)
-      .then((res) => setUsers([res.data, ...users]))
+      .then((res) => setUsers([...users, res.data]))
       .catch((err) => console.log(err))
       .finally(() => setFormValues(initialFormValues));
   };
@@ -59,17 +61,18 @@ function App() {
 
   const submitForm = () => {
     const newUser = {
-      firstName: formValues.firstName.trim(),
-      lastName: formValues.lastName.trim(),
+      first_name: formValues.first_name.trim(),
+      last_name: formValues.last_name.trim(),
+      email: formValues.email.trim(),
+      password: formValues.password.trim(),
+      termsOfService: formValues.termsOfService,
     };
     postNewUser(newUser);
   };
 
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
-
-  // console.log("USERS: ", users);
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <div className="App">
@@ -82,14 +85,9 @@ function App() {
         formErrors={formErrors}
         submitForm={submitForm}
       />
+
       {users.map((user) => (
-        <div key={user.id}>
-          <div>{user.firstName}</div>
-          <div>{user.lastName}</div>
-          <div>{user.email}</div>
-          <div>{user.password}</div>
-          <div>{user.termsOfService}</div>
-        </div>
+        <User key={user.id} user={user} />
       ))}
     </div>
   );
