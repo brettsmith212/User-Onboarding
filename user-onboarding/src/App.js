@@ -22,11 +22,13 @@ const initialFormError = {
 };
 
 const initialUser = [];
+const initialDisabled = true;
 
 function App() {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormError);
   const [users, setUsers] = useState(initialUser);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const getUsers = () => {
     axios
@@ -74,6 +76,10 @@ function App() {
     getUsers();
   }, []);
 
+  useEffect(() => {
+    schema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
+
   return (
     <div className="App">
       <header>
@@ -84,6 +90,7 @@ function App() {
         changedInput={changedInput}
         formErrors={formErrors}
         submitForm={submitForm}
+        disabled={disabled}
       />
 
       {users.map((user) => (
