@@ -17,7 +17,6 @@ const initialFormError = {
   lastName: "",
   email: "",
   password: "",
-  termsOfService: "",
 };
 
 const initialUser = [];
@@ -70,6 +69,8 @@ function App() {
   //   getUsers();
   // }, []);
 
+  // console.log("USERS: ", users);
+
   return (
     <div className="App">
       <header>
@@ -81,12 +82,15 @@ function App() {
         formErrors={formErrors}
         submitForm={submitForm}
       />
-      {/* {users.map((user) => (
-        <div>
+      {users.map((user) => (
+        <div key={user.id}>
           <div>{user.firstName}</div>
           <div>{user.lastName}</div>
+          <div>{user.email}</div>
+          <div>{user.password}</div>
+          <div>{user.termsOfService}</div>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 }

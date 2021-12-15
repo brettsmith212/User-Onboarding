@@ -37,6 +37,33 @@ function UserForm(props) {
             value={formValues.lastName}
           />
         </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            onChange={onChange}
+            value={formValues.email}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            onChange={onChange}
+            value={formValues.password}
+          />
+        </label>
+        <label>
+          I agree to the Terms of Service
+          <input
+            type="checkbox"
+            name="termsOfService"
+            checked={formValues.termsOfService}
+            onChange={onChange}
+          />
+        </label>
         <button>Submit</button>
       </form>
     </div>
