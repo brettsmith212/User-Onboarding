@@ -11,6 +11,7 @@ describe("User Onboarding Testing", () => {
   const emailInput = () => cy.get("input[name=email]");
   const passwordInput = () => cy.get("input[name=password]");
   const termsOfServiceInput = () => cy.get("input[name=termsOfService]");
+  const submitBtn = () => cy.get("button[id='submitBtn']");
 
   it("Sanity Check", () => {
     expect(1 + 2).to.equal(3);
@@ -22,6 +23,7 @@ describe("User Onboarding Testing", () => {
     emailInput().should("exist");
     passwordInput().should("exist");
     termsOfServiceInput().should("exist");
+    submitBtn().should("exist");
   });
 
   it("Inputs receive data correctly", () => {
@@ -41,5 +43,16 @@ describe("User Onboarding Testing", () => {
       .should("have.value", "")
       .type("password")
       .should("have.value", "password");
+    termsOfServiceInput().check();
+  });
+
+  it("User can submit a user", () => {
+    firstNameInput().type("Grandpa");
+    lastNameInput().type("Joe");
+    emailInput().type("grandpajoe@aol.com");
+    passwordInput().type("lazygrandpajoe");
+    termsOfServiceInput().check();
+    submitBtn().click();
+    cy.contains(/Joe/).should("exist");
   });
 });

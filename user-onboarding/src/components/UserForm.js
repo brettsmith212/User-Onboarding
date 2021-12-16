@@ -97,7 +97,9 @@ function UserForm(props) {
               onChange={onChange}
             />
           </label>
-          <button disabled={disabled}>Submit</button>
+          <button id="submitBtn" disabled={disabled}>
+            Submit
+          </button>
         </FormWrapper>
       </form>
     </FormContainer>
