@@ -55,4 +55,17 @@ describe("User Onboarding Testing", () => {
     submitBtn().click();
     cy.contains(/Joe/).should("exist");
   });
+
+  it("Form Validation if Input is left empty", () => {
+    firstNameInput().type("X{backspace}");
+    cy.contains("First Name Required");
+    lastNameInput().type("Y{backspace}");
+    cy.contains("Last Name Required");
+    emailInput().type("Z{backspace}");
+    cy.contains("Email Required");
+    passwordInput().type("A{backspace}");
+    cy.contains("Password Required");
+    passwordInput().type("1234");
+    cy.contains("Password must have at least 5 characters");
+  });
 });
